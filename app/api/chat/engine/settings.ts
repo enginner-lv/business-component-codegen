@@ -12,14 +12,35 @@ import {
   OpenAI,
   OpenAIEmbedding,
   Settings,
+  SentenceSplitter,
 } from "llamaindex";
 import { HuggingFaceEmbedding } from "llamaindex/embeddings/HuggingFaceEmbedding";
 import { OllamaEmbedding } from "llamaindex/embeddings/OllamaEmbedding";
 import { ALL_AVAILABLE_ANTHROPIC_MODELS } from "llamaindex/llm/anthropic";
 import { Ollama } from "llamaindex/llm/ollama";
 
-const CHUNK_SIZE = 512;
-const CHUNK_OVERLAP = 20;
+class CustomSentenceSplitter extends SentenceSplitter {
+  constructor(params?: any) {
+      super(params);
+  }
+
+  // Overriding the _splitText method with type annotations
+  _splitText(text: string): string[] {
+      if (text === "") return [text];
+    
+      
+      const callbackManager = Settings.callbackManager;
+      callbackManager.dispatchEvent("chunking-start", {
+          text: [text]
+      });
+      
+      const splits = text.split("\n\n------split------\n\n")
+
+      console.log("splits", splits)
+
+      return splits;
+  }
+}
 
 export const initSettings = async () => {
   // HINT: you can delete the initialization code for unused model providers
@@ -52,8 +73,9 @@ export const initSettings = async () => {
       initOpenAI();
       break;
   }
-  Settings.chunkSize = CHUNK_SIZE;
-  Settings.chunkOverlap = CHUNK_OVERLAP;
+  
+  const nodeParser = new CustomSentenceSplitter();
+  Settings.nodeParser = nodeParser
 };
 
 function initOpenAI() {
