@@ -1,71 +1,33 @@
-This is a [LlamaIndex](https://www.llamaindex.ai/) project using [Next.js](https://nextjs.org/) bootstrapped with [`create-llama`](https://github.com/run-llama/LlamaIndexTS/tree/main/packages/create-llama).
+## 快读开始
 
-## Getting Started
-
-First, install the dependencies:
+第一步，安装依赖：
 
 ```
-npm install
+pnpm install
 ```
 
-Second, generate the embeddings of the documents in the `./data` directory (if this folder exists - otherwise, skip this step):
+第二步，将 `.env.example` 文件重命名为 `.env`，并输入你的 `OpenAI` `API_KEY`。
 
 ```
-npm run generate
+OPENAI_API_KEY=your-api-key
 ```
 
-Third, run the development server:
+第三步，生成 `./data` 目录中文档的 Embedding：
 
 ```
-npm run dev
+pnpm run generate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Using Docker
-
-1. Build an image for the Next.js app:
+最后，运行开发服务器：
 
 ```
-docker build -t <your_app_image_name> .
+pnpm run dev
 ```
 
-2. Generate embeddings:
+用浏览器打开 [http://localhost:3000](http://localhost:3000) 查看结果。
 
-Parse the data and generate the vector embeddings if the `./data` folder exists - otherwise, skip this step:
+## 了解更多
 
-```
-docker run \
-  --rm \
-  -v $(pwd)/.env:/app/.env \ # Use ENV variables and configuration from your file-system
-  -v $(pwd)/config:/app/config \
-  -v $(pwd)/data:/app/data \
-  -v $(pwd)/cache:/app/cache \ # Use your file system to store the vector database
-  <your_app_image_name> \
-  npm run generate
-```
+要了解有关前端 AI 的更多信息，请查看以下资源：
 
-3. Start the app:
-
-```
-docker run \
-  --rm \
-  -v $(pwd)/.env:/app/.env \ # Use ENV variables and configuration from your file-system
-  -v $(pwd)/config:/app/config \
-  -v $(pwd)/cache:/app/cache \ # Use your file system to store gea vector database
-  -p 3000:3000 \
-  <your_app_image_name>
-```
-
-## Learn More
-
-To learn more about LlamaIndex, take a look at the following resources:
-
-- [LlamaIndex Documentation](https://docs.llamaindex.ai) - learn about LlamaIndex (Python features).
-- [LlamaIndexTS Documentation](https://ts.llamaindex.ai) - learn about LlamaIndex (Typescript features).
-
-You can check out [the LlamaIndexTS GitHub repository](https://github.com/run-llama/LlamaIndexTS) - your feedback and contributions are welcome!
+[《AI赋能前端研发》](https://ai.iamlv.cn/me.html)
