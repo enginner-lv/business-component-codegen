@@ -84,7 +84,7 @@ export type MessageAnnotation = {
   data: AnnotationData;
 };
 
-const NODE_SCORE_THRESHOLD = 0.25;
+const NODE_SCORE_THRESHOLD = 0.2;
 
 export function getAnnotationData<T extends AnnotationData>(
   annotations: MessageAnnotation[],
